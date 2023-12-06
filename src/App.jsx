@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { Route, Routes } from "react-router-dom"
 import Navbar from "./components/Navbar"
+import FeedPostsPage from "./pages/FeedPostsPage"
 import PetListPage from "./pages/PetListPage"
 import PetEditPage from "./pages/PetEditPage"
 import PetCreatePage from "./pages/PetCreatePage"
@@ -11,10 +12,9 @@ import ShelterDetailsPage from "./pages/ShelterDetailsPage"
 import LoginPage from "./pages/LoginPage"
 import SignupPage from "./pages/SignupPage"
 import Homepage from "./pages/Homepage"
-
-import isPrivate from "./components/isPrivate"
-import isAnon from "./components/isAnon"
-
+import UserProfilePage from "./pages/UserProfilePage"
+import IsPrivate from "./components/isPrivate"
+import IsAnon from "./components/isAnon"
 
 import './App.css'
 
@@ -25,7 +25,7 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" element={<Homepage/>} />
-          <Route path="/profile" element={ <IsPrivate><UserProfilePage /></IsPrivate>} />
+          <Route path="/profile" element={<IsPrivate><UserProfilePage /></IsPrivate>} />
           <Route path="/feed" element={<FeedPostsPage />} />
 
           <Route path="/pets" element={<PetListPage />} />

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import { useNavigate } from "react-router-dom";
@@ -10,14 +9,16 @@ function Navbar() {
   return (
     <nav>
       <button onClick={() => navigate("/")}>Home</button>
-      <button onClick={() => navigate("/feed-post")}>Feed Post</button>
+      <button onClick={() => navigate("/feed")}>Feed Post</button>
 
       {isLoggedIn && (
         <>
           <button onClick={() => navigate("/pets")}>Pets</button>
           <button onClick={() => navigate("/profile")}>Profile</button>
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={logOutUser}>Logout</button>
+          <span>{user && user.name}</span>
         </>
+        
       )}
 
       {!isLoggedIn && (
