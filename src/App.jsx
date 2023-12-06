@@ -1,6 +1,21 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Navbar from "./components/Navbar"
+import PetListPage from "./pages/PetListPage"
+import PetEditPage from "./pages/PetEditPage"
+import PetCreatePage from "./pages/PetCreatePage"
+import PetDetailsPage from "./pages/PetDetailsPage"
+import ShelterListPage from "./pages/ShelterListPage"
+import ShelterEditPage from "./pages/ShelterEditPage"
+import ShelterCreatePage from "./pages/ShelterCreatePage"
+import ShelterDetailsPage from "./pages/ShelterDetailsPage"
+import LoginPage from "./pages/LoginPage"
+import SignupPage from "./pages/SignupPage"
+import Homepage from "./pages/Homepage"
+
+import isPrivate from "./components/isPrivate"
+import isAnon from "./components/isAnon"
+
+
 import './App.css'
 
 function App() {
@@ -8,26 +23,26 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+     <div>
+      <Navbar />
+        <Routes>
+        <Route path="/" element={<Homepage/>} />
+        <Route path="/profile" element={ <IsPrivate><UserProfilePage /></IsPrivate>} />
+
+        <Route path="/pets" element={<PetListPage />} />
+        <Route path="/pets/details/:petId" element={<PetDetailsPage />} />
+        <Route path="/pets/edit/:petId" element={<PetEditPage />} />
+        <Route path="/pets/create" element={<PetCreatePage />} />
+
+        <Route path="/shelters" element={<ShelterListPage />} />
+        <Route path="/shelters/details/:sheltertId" element={<ShelterDetailsPage />} />
+        <Route path="/shelters/edit/:shelterId" element={<ShelterEditPage />} />
+        <Route path="/shelters/create" element={<ShelterCreatePage />} />
+
+          <Route path="/login" element={<IsAnon><LoginPage /></IsAnon>} />
+          <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>} />
+        </Routes>
+     </div>
     </>
   )
 }
