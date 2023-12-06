@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import PetEditForm from "../components/PetEditForm"
 
@@ -10,6 +10,7 @@ function PetDetailsPage() {
   const [pet, setPet] = useState(null);
   const { petId } = useParams();
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch pet details using Axios
@@ -27,7 +28,7 @@ function PetDetailsPage() {
   const handleEditClick = () => {
     setIsEditing(true);
   };
-
+  
   const handleCancelEdit = () => {
     setIsEditing(false);
   };
@@ -36,6 +37,25 @@ function PetDetailsPage() {
     setPet(updatedPet);
     setIsEditing(false);
   };
+
+  const handleDelete = () => {
+    // Confirm the deletion with the user, AMAZING, WOW, best feature ever
+    const confirmDelete = window.confirm("Are u sure ? Was this Little Paw-Friend already adopted?");
+    
+    if (confirmDelete) {
+      axios
+        .delete(`${API_URL}/api/pets/${petId}`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then(() => {
+          navigate("/pets");      // Redirect to the pet list page !
+        })
+        .catch((error) => {
+          console.error("Error deleting pet:", error);
+        });
+    }
+  };
+
 
   return (
     <div>
@@ -51,7 +71,7 @@ function PetDetailsPage() {
           ) : (
             <div>
               <button onClick={handleEditClick}>Edit</button>
-              <button>Delete</button>
+              <button onClick={handleDelete}>Delete</button>
             </div>
           )}
         </div>
