@@ -37,7 +37,7 @@ function PetCreatePage() {
         navigate("/pets")
       })
       .catch((error) => {
-        console.log("Error creating a post: ", error);
+        console.log("Error creating a pet: ", error);
       });
   };
   
