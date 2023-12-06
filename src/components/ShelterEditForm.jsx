@@ -1,66 +1,57 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const PetEditForm = ({ pet, onCancel, onSave }) => {
-  const [editedPet, setEditedPet] = useState({ ...pet });
+const ShelterEditForm = ({ pet, onCancel, onSave }) => {
+  const [editedShelter, setEditedShelter] = useState({ ...shelter });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedPet((prev) => ({ ...prev, [name]: value }));
+    setEditedShelter((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSave = () => {
     // Perform API call to update the pet details
     axios
     // id didnt work without the "_" ?! why ?
-      .put(`${API_URL}/api/pets/${pet._id}`, editedPet, {
+      .put(`${API_URL}/api/shelters/${shelter._id}`, editedShelter, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("Pet details updated successfully:", response.data);
+        console.log("Shelter details updated successfully:", response.data);
         onSave(response.data);
       })
       .catch((error) => {
-        console.error("Error updating pet details:", error);
+        console.error("Error updating shelter details:", error);
       });
   };
 
   return (
     <div>
-      <h2>Edit Pet Details</h2>
+      <h2>Edit Shelter Details</h2>
       <label>
         Name:
         <input
           type="text"
           name="name"
-          value={editedPet.name}
+          value={editedShelter.name}
           onChange={handleInputChange}
         />
       </label>
       <label>
-        Species:
+        Location:
         <input
           type="text"
-          name="species"
-          value={editedPet.species}
+          name="location"
+          value={editedShelter.location}
           onChange={handleInputChange}
         />
       </label>
       <label>
-        Breed:
-        <input
-          type="text"
-          name="breed"
-          value={editedPet.breed}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label>
-        Age:
+        Contact:
         <input
           type="number"
-          name="age"
-          value={editedPet.age}
+          name="contact"
+          value={editedShelter.contact}
           onChange={handleInputChange}
         />
       </label>
@@ -68,7 +59,7 @@ const PetEditForm = ({ pet, onCancel, onSave }) => {
         Description:
         <textarea
           name="description"
-          value={editedPet.description}
+          value={editedShelter.description}
           onChange={handleInputChange}
         />
       </label>
@@ -78,4 +69,4 @@ const PetEditForm = ({ pet, onCancel, onSave }) => {
   );
 };
 
-export default PetEditForm
+export default ShelterEditForm

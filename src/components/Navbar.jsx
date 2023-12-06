@@ -14,6 +14,7 @@ function Navbar() {
       {isLoggedIn && (
         <>
           <button onClick={() => navigate("/pets")}>Pets</button>
+          <button onClick={() => navigate("/shelters")}>Shelters</button>
           <button onClick={() => navigate("/profile")}>Profile</button>
           <button onClick={logOutUser}>Logout</button>
           <span>{user && user.name}</span>
