@@ -19,25 +19,23 @@ import isAnon from "./components/isAnon"
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
      <div>
       <Navbar />
         <Routes>
-        <Route path="/" element={<Homepage/>} />
-        <Route path="/profile" element={ <IsPrivate><UserProfilePage /></IsPrivate>} />
+          <Route path="/" element={<Homepage/>} />
+          <Route path="/profile" element={ <IsPrivate><UserProfilePage /></IsPrivate>} />
 
-        <Route path="/pets" element={<PetListPage />} />
-        <Route path="/pets/details/:petId" element={<PetDetailsPage />} />
-        <Route path="/pets/edit/:petId" element={<PetEditPage />} />
-        <Route path="/pets/create" element={<PetCreatePage />} />
+          <Route path="/pets" element={<PetListPage />} />
+          <Route path="/pets/details/:petId" element={<PetDetailsPage />} />
+          <Route path="/pets/edit/:petId" element={<PetEditPage />} />
+          <Route path="/pets/create" element={<PetCreatePage />} />
 
-        <Route path="/shelters" element={<ShelterListPage />} />
-        <Route path="/shelters/details/:sheltertId" element={<ShelterDetailsPage />} />
-        <Route path="/shelters/edit/:shelterId" element={<ShelterEditPage />} />
-        <Route path="/shelters/create" element={<ShelterCreatePage />} />
+          <Route path="/shelters" element={<ShelterListPage />} />
+          <Route path="/shelters/details/:sheltertId" element={<ShelterDetailsPage />} />
+          <Route path="/shelters/edit/:shelterId" element={<ShelterEditPage />} />
+          <Route path="/shelters/create" element={<ShelterCreatePage />} />
 
           <Route path="/login" element={<IsAnon><LoginPage /></IsAnon>} />
           <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>} />
