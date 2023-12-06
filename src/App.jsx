@@ -26,6 +26,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage/>} />
           <Route path="/profile" element={ <IsPrivate><UserProfilePage /></IsPrivate>} />
+          <Route path="/feed" element={<FeedPostsPage />} />
 
           <Route path="/pets" element={<PetListPage />} />
           <Route path="/pets/details/:petId" element={<PetDetailsPage />} />
