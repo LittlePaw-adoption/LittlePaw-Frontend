@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function PetListPage() {
   const [petsList, setPetsList] = useState(null);
@@ -32,6 +33,7 @@ function PetListPage() {
               <p>Breed: {pets.breed}</p>
               <p>Age: {pets.age}</p>
               <p>Description: {pets.description}</p>
+              <Link to={`/pets/details/${pets._id}`}>View Details</Link>
             </div>
           );
         })
