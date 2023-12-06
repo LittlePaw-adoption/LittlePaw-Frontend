@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const ShelterEditForm = ({ pet, onCancel, onSave }) => {
+const ShelterEditForm = ({ shelter, onCancel, onSave }) => {
   const [editedShelter, setEditedShelter] = useState({ ...shelter });
 
   const handleInputChange = (e) => {

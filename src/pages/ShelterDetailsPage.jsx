@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ShelterEditForm from "../components/ShelterEditForm"
 
@@ -9,12 +9,13 @@ const storedToken = localStorage.getItem("authToken");
 function ShelterDetailsPage() {
   const [shelter, setShelter] = useState(null);
   const { shelterId } = useParams();
+  const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch shelter details using Axios
     axios
-      .get(`${API_URL}/api/shelters/${shelterId}`, { headers: { Authorization: `Bearer ${storedToken}` },
-      })
+      .get(`${API_URL}/api/shelters/${shelterId}` ,{ headers: { Authorization: `Bearer ${storedToken}` }})
       .then((response) => {
         setShelter(response.data);
       })
@@ -67,12 +68,16 @@ function ShelterDetailsPage() {
           <p>Contact: {shelter.contact}</p>
 
           {shelter.description && <p>Description: {shelter.description}</p>}
-
-          <button onClick={handleEdit}>Edit</button>
-          <button onClick={handleDelete}>Delete</button>
+          {isEditing ? (
+            <ShelterEditForm shelter={shelter} onCancel={handleCancelEdit} onSave={handleSaveEdit} />
+          ) : (
+            <div>
+              <button onClick={handleEditClick}>Edit</button>
+              <button onClick={handleDelete}>Delete</button>
+            </div>
+          )}
         </div>
       ) : (
-        // Loading message
         <p>Loading...</p>
       )}
     </div>

@@ -31,7 +31,7 @@ function App() {
           <Route path="/pets/create" element={<PetCreatePage />} />
 
           <Route path="/shelters" element={<ShelterListPage />} />
-          <Route path="/shelters/details/:sheltertId" element={<ShelterDetailsPage />} />
+          <Route path="/shelters/details/:shelterId" element={<ShelterDetailsPage />} />
           <Route path="/shelters/create" element={<ShelterCreatePage />} />
 
           <Route path="/login" element={<IsAnon><LoginPage /></IsAnon>} />

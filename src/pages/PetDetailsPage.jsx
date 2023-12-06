@@ -40,7 +40,8 @@ function PetDetailsPage() {
 
   const handleDelete = () => {
     // Confirm the deletion with the user, AMAZING, WOW, best feature ever
-    const confirmDelete = window.confirm("Are u sure ? Was this Little Paw-Friend already adopted?");
+    const confirmDelete = window.confirm(
+      "Are u sure ? Was this Little Paw-Friend already adopted?");
     
     if (confirmDelete) {
       axios
