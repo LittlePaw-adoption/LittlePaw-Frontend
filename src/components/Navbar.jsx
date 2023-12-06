@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   return (
     <nav>
