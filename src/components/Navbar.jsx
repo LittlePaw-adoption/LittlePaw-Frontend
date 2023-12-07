@@ -16,6 +16,8 @@ function Navbar() {
           <button onClick={() => navigate("/pets")}>Pets</button>
           <button onClick={() => navigate("/shelters")}>Shelters</button>
           <button onClick={() => navigate("/profile")}>Profile</button>
+          <button onClick={() => navigate("/pets/create")}>PetsCreate</button>
+          <button onClick={() => navigate("/shelters/create")}>SheltersCreate</button>
           <button onClick={logOutUser}>Logout</button>
           <span>{user && user.name}</span>
         </>
