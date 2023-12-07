@@ -26,6 +26,7 @@ function PetDetailsPage() {
 
   // Functionality for the editing/saving/cancel form
   const handleEditClick = () => {
+    const token = localStorage.getItem('authToken')
     setIsEditing(true);
   };
   
@@ -39,6 +40,7 @@ function PetDetailsPage() {
   };
 
   const handleDelete = () => {
+    const token = localStorage.getItem('authToken')
     // Confirm the deletion with the user, AMAZING, WOW, best feature ever
     const confirmDelete = window.confirm(
       "Are u sure ? Was this Little Paw-Friend already adopted?");
@@ -46,7 +48,7 @@ function PetDetailsPage() {
     if (confirmDelete) {
       axios
         .delete(`${API_URL}/api/pets/${petId}`, {
-          headers: { Authorization: `Bearer ${storedToken}` },
+          headers: { Authorization: `Bearer ${token}` },
         })
         .then(() => {
           navigate("/pets");      // Redirect to the pet list page !
