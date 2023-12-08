@@ -13,6 +13,9 @@ import Homepage from "./pages/Homepage"
 import UserProfilePage from "./pages/UserProfilePage"
 import IsPrivate from "./components/isPrivate"
 import IsAnon from "./components/isAnon"
+import Footer from "./components/Footer"
+import { SWRConfig } from "swr";
+import api from "./api/api"
 
 import './App.css'
 
@@ -20,6 +23,8 @@ function App() {
   return (
     <>
      <div>
+     <SWRConfig
+      value={{ fetcher: (url) => api(url).then((res) => res.data) }}>
       <Navbar />
         <Routes>
           <Route path="/" element={<Homepage/>} />
@@ -37,6 +42,8 @@ function App() {
           <Route path="/login" element={<IsAnon><LoginPage /></IsAnon>} />
           <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>} />
         </Routes>
+        <Footer />
+        </SWRConfig>
      </div>
     </>
   )
