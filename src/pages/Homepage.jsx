@@ -108,7 +108,7 @@ function Homepage() {
       </div>
       <div className="w-full py-16 px-4">
         <div className="max-w-[1240px] mx-auto grid md:grid-cols-2">
-          <img className="w-[300px] mx-auto my-4" src={adoptPet} alt="/" />
+          <img className="w-[350px] mx-auto my-4" src={adoptPet} alt="/" />
           <div className="flex flex-col justify-center">
             <p className="text-[#5bc0be] font-bold">
               ABOUT US AND OUR LITTLE PAW FRIENDS

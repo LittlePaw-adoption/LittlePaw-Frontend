@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png"
+import logo from "../assets/logo.png";
 
 function Navbar() {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
@@ -47,9 +47,10 @@ function Navbar() {
             <ul className="flex flex-col items-center font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:border-gray-700">
               <li>
                 <NavLink
+                  activeClassName="active"
                   onClick={() => navigate("/")}
                   to="/"
-                  className="block py-2 px-3 md:p-0 md:dark:hover:text-[#5bc0be] dark:hover:bg-gray-700 md:dark:hover:bg-transparent dark:border-gray-700 active:text-[#5bc0be]"
+                  className="block py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
                 >
                   Home
                 </NavLink>
@@ -58,8 +59,9 @@ function Navbar() {
                 <>
                   <li>
                     <NavLink
+                      activeClassName="active"
                       to="/feed"
-                      className="block py-2 px-3 md:p-0 md:dark:hover:text-[#5bc0be] dark:hover:bg-gray-700 md:dark:hover:bg-transparent dark:border-gray-700 active:text-[#5bc0be]"
+                      className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
                     >
                       Feed
                     </NavLink>
@@ -67,7 +69,7 @@ function Navbar() {
                   <li>
                     <NavLink
                       to="/pets"
-                      className="block py-2 px-3 md:p-0 md:dark:hover:text-[#5bc0be] dark:hover:bg-gray-700 md:dark:hover:bg-transparent dark:border-gray-700 active:text-[#5bc0be]"
+                      className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
                     >
                       Pets
                     </NavLink>
@@ -75,7 +77,7 @@ function Navbar() {
                   <li>
                     <NavLink
                       to="/shelters"
-                      className="block py-2 px-3 md:p-0 md:dark:hover:text-[#5bc0be] dark:hover:bg-gray-700 md:dark:hover:bg-transparent dark:border-gray-700 active:text-[#5bc0be]"
+                      className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
                     >
                       Shelters
                     </NavLink>
@@ -83,7 +85,7 @@ function Navbar() {
                   <li>
                     <NavLink
                       to="/profile"
-                      className="block py-2 px-3 md:p-0 md:dark:hover:text-[#5bc0be] dark:hover:bg-gray-700 md:dark:hover:bg-transparent dark:border-gray-700 active:text-[#5bc0be]"
+                      className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
                     >
                       Profile
                     </NavLink>
@@ -91,7 +93,7 @@ function Navbar() {
                   <li>
                     <NavLink
                       to="/pets/create"
-                      className="block py-2 px-3 md:p-0 md:dark:hover:text-[#5bc0be] dark:hover:bg-gray-700 md:dark:hover:bg-transparent dark:border-gray-700 active:text-[#5bc0be]"
+                      className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
                     >
                       Create Pets
                     </NavLink>
@@ -99,7 +101,7 @@ function Navbar() {
                   <li>
                     <NavLink
                       to="/shelters/create"
-                      className="block py-2 px-3 md:p-0 md:dark:hover:text-[#5bc0be] dark:hover:bg-gray-700 md:dark:hover:bg-transparent dark:border-gray-700 active:text-[#5bc0be]"
+                      className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
                     >
                       Create Shelters
                     </NavLink>
