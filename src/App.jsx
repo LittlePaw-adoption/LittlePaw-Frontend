@@ -15,7 +15,7 @@ import IsPrivate from "./components/isPrivate"
 import IsAnon from "./components/isAnon"
 import Footer from "./components/Footer"
 import { SWRConfig } from "swr";
-import api from "./api/api"
+// import api from "./api/api"
 
 import './App.css'
 
