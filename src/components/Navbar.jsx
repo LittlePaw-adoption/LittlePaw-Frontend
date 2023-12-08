@@ -129,7 +129,11 @@ function Navbar() {
                     </NavLink>
                   </li>
                   <button
-                    onClick={logOutUser}
+                    onClick={() => {
+                      logOutUser();
+                      navigate("/");
+                    }}
+                    
                     className="text-white bg-[#5bc0be] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
                   >
                     Logout
