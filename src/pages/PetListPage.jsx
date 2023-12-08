@@ -11,7 +11,7 @@ function PetListPage() {
   const [petsList, setPetsList] = useState(null);
   const [pet, setPet] = useState(null);
   // const { petId } = useParams();
-  const [petId, setPetId] = useState(null)
+  const [petId, setPetId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
 
@@ -111,8 +111,7 @@ function PetListPage() {
                   className="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center rounded-md md:w-96 lg:w-80 xl:w-64 dark:bg-gray-100 dark:text-gray-800"
                 >
                   <img
-                    alt=""
-                    className="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full dark:bg-gray-500"
+                    className=" mask mask-hexagon-2 self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover dark:bg-gray-500"
                     src="https://source.unsplash.com/100x100/?portrait?0"
                   />
                   <div className="flex-1 my-4">
@@ -122,11 +121,10 @@ function PetListPage() {
                   <div className="flex items-center justify-center p-3 space-x-3 border-t-2">
                     <button
                       className="btn"
-                      onClick={() =>
-                        {document.getElementById("my_modal_1").showModal()
-                        setPetId(pets._id)
-                      }
-                      }
+                      onClick={() => {
+                        document.getElementById("my_modal_1").showModal();
+                        setPetId(pets._id);
+                      }}
                     >
                       Details
                     </button>
@@ -138,6 +136,16 @@ function PetListPage() {
                             <p className="py-4">{pet.species}</p>
                             <p className="py-4">{pet.breed}</p>
                             <p className="py-4">{pet.age}</p>
+                            {pet.description && (
+                              <p>Description: {pet.description}</p>
+                            )}
+                            {isEditing ? (
+                              <PetEditForm pet={pet} onCancel={handleCancelEdit} onSave={handleSaveEdit} />
+                            ) : (
+                              <div>
+                                <button className="btn" onClick={handleEditClick}>Edit</button>
+                              </div>
+                            )}
                           </div>
                         ) : (
                           <div>
@@ -146,8 +154,12 @@ function PetListPage() {
                         )}
                         <div className="modal-action">
                           <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn">Close</button>
+                            {/* if there is a button in here, it will run the function and close the modal */}
+                            <button className=" btn" onClick={() => {
+                      handleDelete();
+                      navigate("/");
+                    }}>Delete</button>
+                            <button className="glass btn">Close</button>
                           </form>
                         </div>
                       </div>
