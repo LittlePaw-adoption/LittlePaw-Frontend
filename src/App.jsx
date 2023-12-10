@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import FeedPostsPage from "./pages/FeedPostsPage"
 import PetListPage from "./pages/PetListPage"
@@ -18,11 +18,13 @@ import Theme from "./components/Theme"
 import './App.css'
 
 function App() {
+  const location = useLocation();
   return (
-    <>
      <div>
-      <Navbar />
-        <Routes>
+
+      {location.pathname === "/login" || location.pathname === "/signup" ? null : <Navbar />}
+      
+      <Routes>
           <Route path="/" element={<Homepage/>} />
           <Route path="/profile" element={<IsPrivate><UserProfilePage /></IsPrivate>} />
           <Route path="/feed" element={<FeedPostsPage />} />
@@ -39,9 +41,10 @@ function App() {
           <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>} />
         </Routes>
         <Theme />
-        <Footer />
+
+        {location.pathname === "/login" || location.pathname === "/signup" ? null : <Footer />}
+
      </div>
-    </>
   )
 }
 
