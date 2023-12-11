@@ -42,7 +42,7 @@ function PetCreatePage() {
   };
 
   return (
-    <div className="font-sans bg-gray-500 bg-opacity-60 w-full min-h-screen flex justify-center items-center h-full top-0 backdrop-filter backdrop-blur-lg">
+    <div className="font-sans bg-gray-500 bg-opacity-40 w-full min-h-screen flex justify-center items-center h-full top-0 backdrop-filter backdrop-blur-lg">
       <link
         href="https://fonts.googleapis.com/css?family=Poppins"
         rel="stylesheet"
@@ -139,7 +139,9 @@ function PetCreatePage() {
               className="w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
               onChange={(e) => setDescription(e.target.value)}
             />
-            <button
+            <button onClick={() => {
+                          navigate("/feed");
+                        }}
               type="submit"
               className="bg-blue-600 text-gray-100 rounded-md h-8 sm:h-auto sm:rounded-lg w-20 sm:w-52 p-1 text-xs sm:text-md sm:p-3"
             >
