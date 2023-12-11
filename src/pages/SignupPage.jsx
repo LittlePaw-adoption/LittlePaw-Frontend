@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import bgSignup from "../assets/signup.jpg";
 import axios from "axios";
+import { FaArrowLeft } from "react-icons/fa6";
 
 const API_URL = "http://localhost:5005";
 
 function SignupPage(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [selectedUserType, setSelectedUserType] = useState("Person");
@@ -51,6 +53,14 @@ function SignupPage(props) {
         ></div>
         <div className="col-span-4 font-sans font-bold min-h-screen pl-7">
           <div className="grid grid-rows-6 grid-flow-col min-h-screen items-center justify-items-start">
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
+              className="btn btn-circle bg-blue-700 hover:bg-blue-500"
+            >
+              <FaArrowLeft className="text-white" size={18} />
+            </button>
             <div className="row-span-4 row-start-2 text-4xl">
               <form onSubmit={handleSignupSubmit}>
                 Sign up
@@ -78,18 +88,29 @@ function SignupPage(props) {
                     className=" w-full py-3 px-12 border hover: border-gray-500 rounded shadow text-base font-sans"
                   />
                 </div>
-                <div className="pt-2 pr-20">
-                  <label className="text-sm font-sans font-medium">
+                <div className="pt-2 pr-20 relative">
+                  <label
+                    htmlFor="pass"
+                    className="text-sm font-sans font-medium"
+                  >
                     Password
                   </label>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Write your password"
-                    value={password}
-                    onChange={handlePassword}
-                    className=" w-full py-3 px-12 border hover: border-gray-500 rounded shadow text-base font-sans"
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      placeholder="Write your password"
+                      value={password}
+                      onChange={handlePassword}
+                      className=" w-full py-3 px-12 border hover: border-gray-500 rounded shadow text-base font-sans"
+                    />
+                    <a
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="text-sm font-bold text-blue-700 hover:bg-blue-100 rounded-full px-2 py-1 absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                    >
+                      show
+                    </a>
+                  </div>
                 </div>
                 <div className="pt-2 pr-20">
                   <label className="text-sm font-sans font-medium">
