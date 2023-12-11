@@ -17,6 +17,11 @@ function PetListPage() {
 
   // Fectch pet list
   useEffect(() => {
+    getPetList()
+  }, []);
+
+
+  const getPetList = () => {
     axios
       .get(API_URL + "/api/pets", {
         headers: { Authorization: `Bearer ${storedToken}` },
@@ -27,7 +32,8 @@ function PetListPage() {
       .catch((error) => {
         console.log("Error getting the list of pets: ", error);
       });
-  }, []);
+}
+
 
   // Fecth pet details
   useEffect(() => {
@@ -58,6 +64,7 @@ function PetListPage() {
   const handleSaveEdit = (updatedPet) => {
     setPet(updatedPet);
     setIsEditing(false);
+    getPetList()
   };
 
   const handleDelete = (id) => {

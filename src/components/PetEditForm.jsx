@@ -13,10 +13,11 @@ const PetEditForm = ({ pet, onCancel, onSave }) => {
   };
 
   const handleSave = () => {
+    console.log(editedPet)
     // Perform API call to update the pet details
     axios
       // id didnt work without the "_" ?! why ?
-      .put(`${API_URL}/api/pets/${pet._id}`, editedPet, {
+      .put(`${API_URL}/api/pets/${editedPet._id}`, editedPet, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
