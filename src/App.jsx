@@ -3,7 +3,6 @@ import Navbar from "./components/Navbar"
 import FeedPostsPage from "./pages/FeedPostsPage"
 import PetListPage from "./pages/PetListPage"
 import PetCreatePage from "./pages/PetCreatePage"
-import PetDetailsPage from "./pages/PetDetailsPage"
 import ShelterListPage from "./pages/ShelterListPage"
 import ShelterCreatePage from "./pages/ShelterCreatePage"
 import ShelterDetailsPage from "./pages/ShelterDetailsPage"
@@ -30,7 +29,6 @@ function App() {
           <Route path="/feed" element={<FeedPostsPage />} />
 
           <Route path="/pets" element={<PetListPage />} />
-          <Route path="/pets/details/:petId" element={<PetDetailsPage />} />
           <Route path="/pets/create" element={<PetCreatePage />} />
 
           <Route path="/shelters" element={<ShelterListPage />} />

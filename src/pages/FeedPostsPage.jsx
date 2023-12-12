@@ -1,28 +1,36 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
+import { useContext } from "react";
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const storedToken = localStorage.getItem("authToken");
+
 
 function FeedPostsPage() {
   const [pet, setPet] = useState(null);
   const { petId } = useParams();
   const [userData, setUserData] = useState(null);
 
-  useEffect(() => {
-    // Fetch user data from the API
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/api/user/${user._id}`); 
-        setUserData(response.data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
+  const { user } = useContext(AuthContext);
 
-    fetchUserData();
-  }, []); 
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`${API_URL}/api/user/${user._id}`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          setUserData(response.data[0]);
+        })
+        .catch((error) => {
+          console.error("Error fetching user details:", error);
+        });
+    }
+  }, [user]);
+
 
   return (
     <div className="bg-gray-100 p-4">
@@ -40,7 +48,7 @@ function FeedPostsPage() {
                   {userData.name}
                 </span>
                 <span className="text-gray-600 text-xs block">
-                  {/* {userData.country} */}Portugal, porto
+                  {userData.country}
                 </span>
               </div>
             </>
