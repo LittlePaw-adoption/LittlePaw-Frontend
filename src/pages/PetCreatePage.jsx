@@ -11,12 +11,13 @@ function PetCreatePage() {
   const [breed, setBreed] = useState("");
   const [age, setAge] = useState("");
   const [description, setDescription] = useState("");
+  const [selectedSpeciesType, setSelectedSpeciesType] = useState("")
 
   const navigate = useNavigate();
 
   const requestBody = {
     name,
-    species,
+    species: selectedSpeciesType,
     breed,
     age,
     description,
@@ -40,6 +41,10 @@ function PetCreatePage() {
         console.log("Error creating a pet: ", error);
       });
   };
+
+  const handleSpeciesTypeChange = (e) => {
+    setSelectedSpeciesType(e.target.value)
+  }
 
   return (
     <div className="font-sans bg-gray-500 bg-opacity-40 w-full min-h-screen flex justify-center items-center h-full top-0 backdrop-filter backdrop-blur-lg">
@@ -89,19 +94,6 @@ function PetCreatePage() {
               onChange={(e) => setName(e.target.value)}
             />
             <label
-              htmlFor="species"
-              className="text-gray-700 mt-1 sm:mt-5 text-xs sm:text-md"
-            >
-              Species:
-            </label>
-            <input
-              name="species"
-              type="text"
-              className="w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
-              required={true}
-              onChange={(e) => setSpecies(e.target.value)}
-            />
-            <label
               htmlFor="breed"
               className="text-gray-700 mt-1 sm:mt-5 text-xs sm:text-md"
             >
@@ -139,11 +131,56 @@ function PetCreatePage() {
               className="w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
               onChange={(e) => setDescription(e.target.value)}
             />
-            <button onClick={() => {
-                          navigate("/feed");
-                        }}
+             
+             <div className="mb-5">
+            <label
+             For="species"
+              className= "mb-3 block text-base font-medium text-[#07074D]"
+            >
+              Species:
+            </label>
+            <div className="flex items-center space-x-6">
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              name="Dog"
+              value="Dog"
+              checked={selectedSpeciesType === "Dog"}
+              onChange= {handleSpeciesTypeChange}
+              id="speciesButton1"
+              className="h-5 w-5 cursor-pointer border-solid border-2 border-[#5bc0be]"
+            />
+            <label
+              for="speciesButton1"
+              className="pl-3 text-base font-medium text-[#07074D]"
+            >
+              Dog
+            </label>
+            </div>
+
+            <div class="flex items-center">
+            <input
+              type="checkbox"
+              name="Cat"
+              value="Cat"
+              checked={selectedSpeciesType === "Cat"}
+              onChange= {handleSpeciesTypeChange}
+              id="speciesButton2"
+              className="h-5 w-5 cursor-pointer border-solid border-2 border-[#5bc0be]"
+            />
+            <label
+              for="speciesButton2"
+              className="pl-3 text-base font-medium text-[#07074D]"
+            >
+              Cat
+            </label>
+            </div>
+            </div>
+</div>
+
+            <button 
               type="submit"
-              className="bg-blue-600 text-gray-100 rounded-md h-8 sm:h-auto sm:rounded-lg w-20 sm:w-52 p-1 text-xs sm:text-md sm:p-3"
+              className="bg-[#5bc0be] text-gray-100 rounded-md h-8 sm:h-auto sm:rounded-lg w-20 sm:w-52 p-1 text-xs sm:text-md sm:p-3"
             >
               Create a Post
             </button>
