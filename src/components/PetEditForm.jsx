@@ -93,7 +93,7 @@ const PetEditForm = ({ pet, onCancel, onSave }) => {
           viewBox="0 0 24 24"
           fill="currentColor"
           className="w-6 h-6 cursor-pointer hover:dark:text-[#5bc0be]"
-          onClick={handleSave}
+          onClick={onCancel}
         >
           <path
             fill-rule="evenodd"
@@ -106,7 +106,7 @@ const PetEditForm = ({ pet, onCancel, onSave }) => {
           viewBox="0 0 24 24"
           fill="currentColor"
           className="w-6 h-6 cursor-pointer hover:dark:text-[#5bc0be]"
-          onClick={onCancel}
+          onClick={handleSave}
         >
           <path
             fill-rule="evenodd"
