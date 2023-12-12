@@ -86,7 +86,7 @@ function PetListPage() {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(() => {
-          navigate("/pets"); // Redirect to the pet list page !
+          getPetList();
         })
         .catch((error) => {
           console.error("Error deleting pet:", error);
@@ -106,8 +106,8 @@ function PetListPage() {
           petUpdate,
           { headers: { Authorization: `Bearer ${storedToken}` } }
         );
-        console.log(response.data)
-        setPetsList(response.data.pets);
+
+        getPetList();
       } catch (error) {
         console.log(error);
       }
@@ -182,7 +182,10 @@ function PetListPage() {
                             {pet.description && (
                               <p>Description: {pet.description}</p>
                             )}
-                            {isEditing ? (
+                            
+
+                            {currentUser !== null &&  currentUser._id === pet?.createdBy ? (
+                            isEditing ? (
                               <PetEditForm
                                 pet={pet}
                                 onCancel={handleCancelEdit}
@@ -197,13 +200,15 @@ function PetListPage() {
                                   Edit
                                 </button>
                               </div>
-                            )}
+                            )
+                            ) : null}
                           </div>
                         ) : (
                           <div>
                             <p>Loading...</p>
                           </div>
                         )}
+
                         <div className="modal-action">
                           <form method="dialog">
                             {/* if there is a button in here, it will run the function and close the modal */}
@@ -244,7 +249,6 @@ function PetListPage() {
                         className="w-6 h-6"
                         onClick={() => {
                           handleDelete(pets._id);
-                          navigate("/");
                         }}
                       >
                         <path
