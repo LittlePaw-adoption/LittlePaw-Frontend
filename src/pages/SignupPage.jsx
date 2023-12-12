@@ -4,7 +4,7 @@ import bgSignup from "../assets/signup.jpg";
 import axios from "axios";
 import { FaArrowLeft } from "react-icons/fa6";
 
-const API_URL = "http://localhost:5005";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function SignupPage(props) {
   const [email, setEmail] = useState("");
