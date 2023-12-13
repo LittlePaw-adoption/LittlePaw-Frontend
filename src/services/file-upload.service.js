@@ -1,12 +1,9 @@
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
-const storedToken = localStorage.getItem("authToken");
 
 const service = axios.create({
   baseURL: `${API_URL}`,
-  // withCredentials: true,
-  // headers: { Authorization: `Bearer ${storedToken}` },
 });
 
 
@@ -14,11 +11,9 @@ const service = axios.create({
 service.interceptors.request.use(
   async (config) => {
     const json = localStorage.getItem("authToken");
-    // const loggedInUser = JSON.parse(json);
 
     if (json) {
       config.headers.Authorization = `Bearer ${json}`;
-      //cross origin
     }
       
     return config;

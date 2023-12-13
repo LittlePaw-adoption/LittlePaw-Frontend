@@ -3,36 +3,17 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import service from "../services/file-upload.service";
 
-const API_URL = import.meta.env.VITE_API_URL;
-const storedToken = localStorage.getItem("authToken");
-
 function PetCreatePage() {
-  // const [name, setName] = useState("");
-  // const [species, setSpecies] = useState("");
-  // const [breed, setBreed] = useState("");
-  // const [age, setAge] = useState("");
-  // const [petImage, setPetImage] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [selectedSpeciesType, setSelectedSpeciesType] = useState("");
-
   const [newPet, setNewPet] = useState(null);
   const [picture, setPicture] = useState(null);
-  const navigate = useNavigate();
 
-  // const requestBody = {
-  //   name,
-  //   species: selectedSpeciesType,
-  //   breed,
-  //   age,
-  //   description,
-  //   petImage
-  // };
+  const navigate = useNavigate();
 
   const handleFileUpload = async (e) => {
     e.preventDefault();
     try {
       const uploadData = new FormData();
-
+      
       uploadData.append("petImage", picture);
       const response = await service.uploadImage(uploadData); 
       handleSubmit(response.fileUrl);
@@ -40,7 +21,7 @@ function PetCreatePage() {
       console.log(error);
     }
   };
-
+  
   const handleSubmit = (image) => {
     service
       .createPets(
@@ -55,10 +36,6 @@ function PetCreatePage() {
       .catch((error) => {
         console.log("Error creating a pet: ", error);
       });
-  };
-
-  const handleSpeciesTypeChange = (e) => {
-    setSelectedSpeciesType(e.target.value);
   };
 
   useEffect(() => {
