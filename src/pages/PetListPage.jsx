@@ -63,8 +63,7 @@ function PetListPage() {
   const handleSaveEdit = (updatedPet) => {
     setPet(updatedPet);
     setIsEditing(false);
-    getPetList();
-    getPetList();
+    getPets();
   };
 
   const handleDelete = (id) => {
@@ -75,12 +74,12 @@ function PetListPage() {
     );
 
     if (confirmDelete) {
-      service
+      axios
         .delete(`${API_URL}/api/pets/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(() => {
-          getPetList();
+          getPets();
         })
         .catch((error) => {
           console.error("Error deleting pet:", error);
@@ -101,7 +100,7 @@ function PetListPage() {
           { headers: { Authorization: `Bearer ${storedToken}` } }
         );
 
-        getPetList(response);
+        getPets(response);
       } catch (error) {
         console.log(error);
       }
