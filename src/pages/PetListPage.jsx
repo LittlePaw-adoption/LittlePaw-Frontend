@@ -12,14 +12,16 @@ const storedToken = localStorage.getItem("authToken");
 
 function PetListPage() {
   const [petsList, setPetsList] = useState(null);
-  const [pet, setPet] = useState(null);
-  // const { petId } = useParams();
-  const [petId, setPetId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [petId, setPetId] = useState(null);
+  const [pet, setPet] = useState(null);
+ 
+
   const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
-  const [currentUser, setCurrentUser] = useState(null);
+
 
   // Fectch pet list
   useEffect(() => {
@@ -60,11 +62,27 @@ function PetListPage() {
     setIsEditing(false);
   };
 
-  const handleSaveEdit = (updatedPet) => {
-    setPet(updatedPet);
-    setIsEditing(false);
-    getPetList();
-    getPetList();
+  const handleSaveEdit = async (updatedPet) => {
+    try {
+      // Perform the API call to update the pet details
+      const response = await axios.put(
+        `${API_URL}/api/pets/${updatedPet._id}`,
+        updatedPet,
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      );
+  
+      // Update the pet list by fetching it again
+      const updatedPetList = await service.getPets();
+      setPetsList(updatedPetList);
+  
+      // Set the updated pet in the state
+      setPet(updatedPet);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating pet details:", error);
+    }
   };
 
   const handleDelete = (id) => {
@@ -101,7 +119,7 @@ function PetListPage() {
           { headers: { Authorization: `Bearer ${storedToken}` } }
         );
 
-        getPetList(response);
+        getPetsList(response);
       } catch (error) {
         console.log(error);
       }
