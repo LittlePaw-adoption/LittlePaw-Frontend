@@ -96,8 +96,9 @@ function PetListPage() {
         .delete(`${API_URL}/api/pets/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
-        .then(() => {
-          getPets();
+        .then((response) => {
+          if(response.status === 200 )
+         setPetsList(prev => prev.filter(current => current._id !== id))
         })
         .catch((error) => {
           console.error("Error deleting pet:", error);
@@ -113,19 +114,24 @@ function PetListPage() {
 
       try {
         const response = await axios.put(
-          API_URL + `/api/pets/${petUpdate._id}`,
+          API_URL + `/api/adopt/pets/${petUpdate._id}`,
           petUpdate,
           { headers: { Authorization: `Bearer ${storedToken}` } }
         );
 
-        getPets(response);
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      console.log(`Pet not found`);
+        setPetsList((prevPetsList) =>
+        prevPetsList.map((pet) =>
+          pet._id === petUpdate._id ? { ...pet, status: "Pending" } : pet
+        )
+      );
+    } catch (error) {
+      console.log(error);
     }
-  };
+  } else {
+    console.log(`Pet not found`);
+  }
+};
+
 
   useEffect(() => {
     if (user) {
@@ -256,7 +262,7 @@ function PetListPage() {
                   </dialog>
 
                   {currentUser !== null &&
-                    currentUser.typeOfUser === "Person" && (
+                    currentUser.typeOfUser === "Person" && currentUser._id !== petDetails.createdBy.toString() &&   (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
