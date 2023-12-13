@@ -24,10 +24,11 @@ function PetCreatePage() {
   };
 
   const handleSubmit = (e) => {
+    const token = localStorage.getItem("authToken")
     e.preventDefault();
     axios
-      .post(API_URL + "/api/pets/", requestBody, {
-        headers: { Authorization: `Bearer ${storedToken}` },
+      .post(API_URL + "/api/pets/", requestBody, {  
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {
         setName("");
