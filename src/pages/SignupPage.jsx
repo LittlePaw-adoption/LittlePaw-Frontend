@@ -117,9 +117,9 @@ function SignupPage(props) {
                     Type of user
                   </label>
                 </div>
-                <div class="grid space-y-3">
-                  <div class="relative flex items-start">
-                    <div class="flex items-center h-5 mt-1">
+                <div className="grid space-y-3">
+                  <div className="relative flex items-start">
+                    <div className="flex items-center h-5 mt-1">
                       <input
                         id="hs-radio-delete"
                         name="hs-radio-with-description"
@@ -127,24 +127,24 @@ function SignupPage(props) {
                         value="Person"
                         checked={selectedUserType === "Person"}
                         onChange={handleUserTypeChange}
-                        class="border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                        className="border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                         aria-describedby="hs-radio-delete-description"
                       />
                     </div>
-                    <label for="hs-radio-delete" class="ms-3">
-                      <span class="block text-sm font-semibold dark:text-gray-300">
+                    <label htmlFor="hs-radio-delete" className="ms-3">
+                      <span className="block text-sm font-semibold dark:text-gray-300">
                         Person
                       </span>
                       <span
                         id="hs-radio-delete-description"
-                        class="block text-sm text-gray-600 dark:text-gray-500"
+                        className="block text-sm text-gray-600 dark:text-gray-500"
                       >
                         I want to adopt a pet.
                       </span>
                     </label>
                   </div>
-                  <div class="relative flex items-start">
-                    <div class="flex items-center h-5 mt-1">
+                  <div className="relative flex items-start">
+                    <div className="flex items-center h-5 mt-1">
                       <input
                         id="hs-radio-archive"
                         name="hs-radio-with-description"
@@ -152,17 +152,17 @@ function SignupPage(props) {
                         value="Shelter"
                         checked={selectedUserType === "Shelter"}
                         onChange={handleUserTypeChange}
-                        class="border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                        className="border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                         aria-describedby="hs-radio-archive-description"
                       />
                     </div>
-                    <label for="hs-radio-archive" class="ms-3">
-                      <span class="block text-sm font-semibold dark:text-gray-300">
+                    <label htmlFor="hs-radio-archive" className="ms-3">
+                      <span className="block text-sm font-semibold dark:text-gray-300">
                         Shelter
                       </span>
                       <span
                         id="hs-radio-archive-description"
-                        class="block text-sm text-gray-600 dark:text-gray-500"
+                        className="block text-sm text-gray-600 dark:text-gray-500"
                       >
                         I want to have pets for adoption.
                       </span>

@@ -1,40 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import service from "../services/file-upload.service";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const storedToken = localStorage.getItem("authToken");
 
 function PetCreatePage() {
-  const [name, setName] = useState("");
-  const [species, setSpecies] = useState("");
-  const [breed, setBreed] = useState("");
-  const [age, setAge] = useState("");
-  const [description, setDescription] = useState("");
-  const [selectedSpeciesType, setSelectedSpeciesType] = useState("")
+  // const [name, setName] = useState("");
+  // const [species, setSpecies] = useState("");
+  // const [breed, setBreed] = useState("");
+  // const [age, setAge] = useState("");
+  // const [petImage, setPetImage] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [selectedSpeciesType, setSelectedSpeciesType] = useState("");
 
+  const [newPet, setNewPet] = useState(null);
+  const [picture, setPicture] = useState(null);
   const navigate = useNavigate();
 
-  const requestBody = {
-    name,
-    species: selectedSpeciesType,
-    breed,
-    age,
-    description,
+  // const requestBody = {
+  //   name,
+  //   species: selectedSpeciesType,
+  //   breed,
+  //   age,
+  //   description,
+  //   petImage
+  // };
+
+  const handleFileUpload = async (e) => {
+    e.preventDefault();
+    try {
+      const uploadData = new FormData();
+
+      uploadData.append("petImage", picture);
+      const response = await service.uploadImage(uploadData); 
+      handleSubmit(response.fileUrl);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post(API_URL + "/api/pets/", requestBody, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
+  const handleSubmit = (image) => {
+    service
+      .createPets(
+        
+        { ...newPet, petImage: image },
+      
+      )
       .then(() => {
-        setName("");
-        setSpecies("");
-        setBreed("");
-        setAge("");
-        setDescription("");
+        setNewPet(null);
         navigate("/pets");
       })
       .catch((error) => {
@@ -43,8 +58,12 @@ function PetCreatePage() {
   };
 
   const handleSpeciesTypeChange = (e) => {
-    setSelectedSpeciesType(e.target.value)
-  }
+    setSelectedSpeciesType(e.target.value);
+  };
+
+  useEffect(() => {
+    console.log(newPet);
+  }, [newPet]);
 
   return (
     <div className="font-sans bg-gray-500 bg-opacity-40 w-full min-h-screen flex justify-center items-center h-full top-0 backdrop-filter backdrop-blur-lg">
@@ -59,12 +78,12 @@ function PetCreatePage() {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="w-6 h-6"
+              className="w-6 h-6"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm2.023 6.828a.75.75 0 10-1.06-1.06 3.75 3.75 0 01-5.304 0 .75.75 0 00-1.06 1.06 5.25 5.25 0 007.424 0z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               />
             </svg>
 
@@ -82,7 +101,7 @@ function PetCreatePage() {
           </p>
         </div>
         <div className="mt-1 sm:mt-8">
-          <form action="" className="flex-col flex" onSubmit={handleSubmit}>
+          <form action="" className="flex-col flex" onSubmit={handleFileUpload}>
             <label htmlFor="name" className="text-gray-700 text-xs sm:text-md">
               Name:
             </label>
@@ -91,7 +110,12 @@ function PetCreatePage() {
               type="text"
               className="w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
               required={true}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) =>
+                setNewPet((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
             />
             <label
               htmlFor="breed"
@@ -103,7 +127,12 @@ function PetCreatePage() {
               name="breed"
               type="text"
               className="w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
-              onChange={(e) => setBreed(e.target.value)}
+              onChange={(e) =>
+                setNewPet((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
             />
             <label
               htmlFor="age"
@@ -117,7 +146,12 @@ function PetCreatePage() {
               className="w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
               required={true}
               min={0}
-              onChange={(e) => setAge(e.target.value)}
+              onChange={(e) =>
+                setNewPet((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
             />
             <label
               htmlFor="description"
@@ -129,63 +163,80 @@ function PetCreatePage() {
               name="description"
               type="text"
               className="w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) =>
+                setNewPet((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
             />
-             
-             <div className="mb-5">
-            <label
-             For="species"
-              className= "mb-3 block text-base font-medium text-[#07074D]"
-            >
-              Species:
-            </label>
-            <div className="flex items-center space-x-6">
-          <div className="flex items-center">
             <input
-              type="checkbox"
-              name="Dog"
-              value="Dog"
-              checked={selectedSpeciesType === "Dog"}
-              onChange= {handleSpeciesTypeChange}
-              id="speciesButton1"
-              className="h-5 w-5 cursor-pointer border-solid border-2 border-[#5bc0be]"
+              type="file"
+              onChange={(e) => setPicture(e.target.files[0])}
             />
-            <label
-              for="speciesButton1"
-              className="pl-3 text-base font-medium text-[#07074D]"
-            >
-              Dog
-            </label>
+            <div className="mb-5">
+              <label
+                htmlFor="species"
+                className="mb-3 block text-base font-medium text-[#07074D]"
+              >
+                Species:
+              </label>
+              <div className="flex items-center space-x-6">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name="species"
+                    value="Dog"
+                    checked={newPet && newPet.species === "Dog"}
+                    onChange={(e) =>
+                      setNewPet((prev) => ({
+                        ...prev,
+                        [e.target.name]: e.target.value,
+                      }))
+                    }
+                    id="speciesButton1"
+                    className="h-5 w-5 cursor-pointer border-solid border-2 border-[#5bc0be]"
+                  />
+                  <label
+                    htmlFor="speciesButton1"
+                    className="pl-3 text-base font-medium text-[#07074D]"
+                  >
+                    Dog
+                  </label>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name="species"
+                    value="Cat"
+                    checked={newPet && newPet.species === "Cat"}
+                    onChange={(e) =>
+                      setNewPet((prev) => ({
+                        ...prev,
+                        [e.target.name]: e.target.value,
+                      }))
+                    }
+                    id="speciesButton2"
+                    className="h-5 w-5 cursor-pointer border-solid border-2 border-[#5bc0be]"
+                  />
+                  <label
+                    htmlFor="speciesButton2"
+                    className="pl-3 text-base font-medium text-[#07074D]"
+                  >
+                    Cat
+                  </label>
+                </div>
+              </div>
             </div>
 
-            <div class="flex items-center">
-            <input
-              type="checkbox"
-              name="Cat"
-              value="Cat"
-              checked={selectedSpeciesType === "Cat"}
-              onChange= {handleSpeciesTypeChange}
-              id="speciesButton2"
-              className="h-5 w-5 cursor-pointer border-solid border-2 border-[#5bc0be]"
-            />
-            <label
-              for="speciesButton2"
-              className="pl-3 text-base font-medium text-[#07074D]"
-            >
-              Cat
-            </label>
-            </div>
-            </div>
-</div>
-
-            <button 
+            <button
               type="submit"
               className="bg-[#5bc0be] text-gray-100 rounded-md h-8 sm:h-auto sm:rounded-lg w-20 sm:w-52 p-1 text-xs sm:text-md sm:p-3"
             >
               Create a Post
             </button>
           </form>
-    
         </div>
       </div>
     </div>

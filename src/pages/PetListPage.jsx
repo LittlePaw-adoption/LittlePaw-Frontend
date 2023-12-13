@@ -4,42 +4,34 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import PetEditForm from "../components/PetEditForm";
 import { AuthContext } from "../context/auth.context";
+import service from "../services/file-upload.service";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const storedToken = localStorage.getItem("authToken");
 
 function PetListPage() {
-
   const [petsList, setPetsList] = useState(null);
   const [pet, setPet] = useState(null);
   // const { petId } = useParams();
   const [petId, setPetId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
-  
+
   const { user } = useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState(null);
 
-
   // Fectch pet list
   useEffect(() => {
-    getPetList()
-  }, []);
-
-
-  const getPetList = () => {
-    axios
-      .get(API_URL + "/api/pets", {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        setPetsList(response.data);
+    service
+    .getPets()
+      .then((data) => {
+        setPetsList(data);
+        console.log("jesus help me", data)
       })
       .catch((error) => {
         console.log("Error getting the list of pets: ", error);
       });
-}
-
+  }, []);
 
   // Fecth pet details
   useEffect(() => {
@@ -70,7 +62,7 @@ function PetListPage() {
   const handleSaveEdit = (updatedPet) => {
     setPet(updatedPet);
     setIsEditing(false);
-    getPetList()
+    getPetList();
   };
 
   const handleDelete = (id) => {
@@ -107,7 +99,7 @@ function PetListPage() {
           { headers: { Authorization: `Bearer ${storedToken}` } }
         );
 
-        getPetList();
+        getPetList(response);
       } catch (error) {
         console.log(error);
       }
@@ -128,7 +120,7 @@ function PetListPage() {
         .catch((error) => {
           console.error("Error fetching user details:", error);
         });
-      }
+    }
   }, [user]);
 
   return (
@@ -146,7 +138,7 @@ function PetListPage() {
                 >
                   <img
                     className=" mask mask-hexagon-2 self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover dark:bg-gray-500"
-                    src="https://source.unsplash.com/100x100/?portrait?0"
+                    src={pets.petImage}
                   />
                   <div className="flex-1 my-4">
                     <p className="text-xl font-semibold leadi">{pets.name}</p>
@@ -182,25 +174,25 @@ function PetListPage() {
                             {pet.description && (
                               <p>Description: {pet.description}</p>
                             )}
-                            
 
-                            {currentUser !== null &&  currentUser._id === pet?.createdBy ? (
-                            isEditing ? (
-                              <PetEditForm
-                                pet={pet}
-                                onCancel={handleCancelEdit}
-                                onSave={handleSaveEdit}
-                              />
-                            ) : (
-                              <div>
-                                <button
-                                  className="btn"
-                                  onClick={handleEditClick}
-                                >
-                                  Edit
-                                </button>
-                              </div>
-                            )
+                            {currentUser !== null &&
+                            currentUser._id === pet?.createdBy ? (
+                              isEditing ? (
+                                <PetEditForm
+                                  pet={pet}
+                                  onCancel={handleCancelEdit}
+                                  onSave={handleSaveEdit}
+                                />
+                              ) : (
+                                <div>
+                                  <button
+                                    className="btn"
+                                    onClick={handleEditClick}
+                                  >
+                                    Edit
+                                  </button>
+                                </div>
+                              )
                             ) : null}
                           </div>
                         ) : (
@@ -219,23 +211,24 @@ function PetListPage() {
                       </div>
                     </dialog>
 
-                    {currentUser !== null && currentUser.typeOfUser === "Person" && (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-6 h-6 hover:dark:text-[#5bc0be] cursor-pointer"
-                      onClick={() => {
-                        handleAdoption(pets._id);
-                      }}
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    )}
+                    {currentUser !== null &&
+                      currentUser.typeOfUser === "Person" && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="w-6 h-6 hover:dark:text-[#5bc0be] cursor-pointer"
+                          onClick={() => {
+                            handleAdoption(pets._id);
+                          }}
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
                     <Link
                       rel="noopener noreferrer"
                       href="#"

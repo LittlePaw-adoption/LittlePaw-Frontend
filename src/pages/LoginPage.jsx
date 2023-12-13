@@ -4,7 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import bgLogin from "../assets/login.jpg";
 import axios from "axios";
 import { FaArrowLeft } from "react-icons/fa6";
-
+import service from "../services/file-upload.service";
 const API_URL = import.meta.env.VITE_API_URL;
 
 function LoginPage(props) {
@@ -24,8 +24,8 @@ function LoginPage(props) {
     e.preventDefault();
     const requestBody = { email, password };
 
-    axios
-      .post(`${API_URL}/auth/login`, requestBody)
+    service.service
+      .post(`/auth/login`, requestBody)
       .then((response) => {
         console.log("JWT token", response.data.authToken);
         storeToken(response.data.authToken);

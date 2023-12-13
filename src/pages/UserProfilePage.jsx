@@ -28,31 +28,31 @@ function UserProfilePage() {
   return (
     <>
       {currentUser !== null && (
-        <div class="flex flex-col justify-center items-center h-[83.5vh]">
-          <div class="relative flex flex-col items-center rounded-[20px] w-[400px] mx-auto p-4 bg-clip-border shadow dark:!bg-navy-800">
-            <div class="relative flex h-32 w-full justify-center rounded-xl bg-cover">
+        <div className="flex flex-col justify-center items-center h-[83.5vh]">
+          <div className="relative flex flex-col items-center rounded-[20px] w-[400px] mx-auto p-4 bg-clip-border shadow dark:!bg-navy-800">
+            <div className="relative flex h-32 w-full justify-center rounded-xl bg-cover">
               <img
                 src={currentUser.bgImage}
-                class="absolute flex h-32 w-full justify-center rounded-xl bg-cover"
+                className="absolute flex h-32 w-full justify-center rounded-xl bg-cover"
               />
-              <div class="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
+              <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
                 <img
-                  class="h-full w-full rounded-full"
+                  className="h-full w-full rounded-full"
                   src={currentUser.profileImage}
                   alt=""
                 />
               </div>
             </div>
-            <div class="mt-16 flex flex-col items-center">
-              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
+            <div className="mt-16 flex flex-col items-center">
+              <h4 className="text-xl font-bold text-navy-700 dark:text-white">
                 {currentUser.name}
               </h4>
-              <p class="text-base font-normal text-gray-600">
+              <p className="text-base font-normal text-gray-600">
                 {currentUser.country}
               </p>
             </div>
-            <div class="mt-6 mb-3 flex gap-14 md:!gap-14">
-              <div class="flex flex-col items-center justify-center">
+            <div className="mt-6 mb-3 flex gap-14 md:!gap-14">
+              <div className="flex flex-col items-center justify-center">
                 <p>{currentUser.bio}</p>
               </div>
             </div>
