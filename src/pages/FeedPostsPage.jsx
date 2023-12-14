@@ -10,27 +10,13 @@ const storedToken = localStorage.getItem("authToken");
 
 function FeedPostsPage() {
   const [pets, setPets] = useState([]);
-  const [userData, setUserData] = useState(null);
   const { petId } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(`${API_URL}/api/user/${user._id}`, {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        })
-        .then((response) => {
-          setUserData(response.data[0]);
-        })
-        .catch((error) => {
-          console.error("Error fetching user details:", error);
-        });
-    }
-  }, [user]);
 
   useEffect(() => {
+    console.log(storedToken)
     // Fetch the list of pets
     axios
       .get(`${API_URL}/api/pets`, {
@@ -65,19 +51,19 @@ function FeedPostsPage() {
         {pets.map((pet) => (
           <div key={pet._id} className="bg-white">
             <div className="flex items-center px-4 py-3">
-              {userData && (
+              {pet.createdBy && (
                 <>
                   <img
                     className="h-8 w-8 rounded-full"
-                    src={userData.profileImage}
-                    alt={userData.name}
+                    src={pet.createdBy.profileImage}
+                    alt={pet.createdBy.name}
                   />
                   <div className="ml-3">
                     <span className="text-sm font-semibold antialiased block leading-tight">
-                      {userData.name}
+                      {pet.createdBy.name}
                     </span>
                     <span className="text-gray-600 text-xs block">
-                      {userData.country}
+                      {pet.createdBy.country}
                     </span>
                   </div>
                 </>

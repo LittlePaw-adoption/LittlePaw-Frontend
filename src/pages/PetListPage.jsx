@@ -25,6 +25,7 @@ function PetListPage() {
 
 
   const fetchPetData = (petId) => {
+    console.log(storedToken)
     axios
     .get(`${API_URL}/api/pets/${petId}`, {
       headers: { Authorization: `Bearer ${storedToken}` },
@@ -283,7 +284,7 @@ function PetListPage() {
                   </dialog>
 
                   {currentUser !== null &&
-                    currentUser.typeOfUser === "Person" && currentUser._id !== petDetails.createdBy.toString() &&   (
+                    currentUser.typeOfUser === "Person" && currentUser._id !== petDetails.createdBy &&   (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
