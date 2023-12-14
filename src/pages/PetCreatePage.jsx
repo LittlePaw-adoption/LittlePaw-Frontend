@@ -40,7 +40,7 @@ function PetCreatePage() {
   }, [newPet]);
 
   return (
-    <div className="font-sans bg-gray-900 bg-opacity-5 w-full pt-4 pb-3 flex justify-center items-center">
+    <div className="font-sans bg-gray-900 bg-opacity-5 w-full pt-3 pb-3 flex justify-center items-center">
       <div className="bg-white p-6 sm:p-10 w-full md:w-2/3 lg:w-1/2 xl:w-2/3 rounded-3xl filter shadow-lg flex flex-row items-center">
         <div className="w-1/2">
           <div className="flex items-center justify-between mb-4">
@@ -81,7 +81,7 @@ function PetCreatePage() {
             >
               <label
                 htmlFor="name"
-                className="text-gray-700 text-xs sm:text-md"
+                className="block mb-2 text-sm font-medium text-gray-600"
               >
                 Name:
               </label>
