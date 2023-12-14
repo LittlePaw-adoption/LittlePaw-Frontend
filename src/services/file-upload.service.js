@@ -53,6 +53,13 @@ const createShelters = (shelters) => {
     .catch(errorHandler);
 };
 
+const getShelters = () => {
+  return service
+    .get("/api/pets")
+    .then((res) => res.data)
+    .catch(errorHandler);
+};
+
 const editUser = (user, requestBody) => {
   return service
     .put("/api/user" + user, requestBody)
@@ -66,5 +73,6 @@ export default {
   uploadImage,
   createPets,
   editUser,
-  createShelters
+  createShelters,
+  getShelters
 };
