@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import service from "../services/file-upload.service";
-import { AuthContext } from "../context/auth.context";
-import axios from "axios";
+
 
 function EditProfile(userData) {
   const [name, setName] = useState(userData.user.name);
@@ -127,13 +126,13 @@ function EditProfile(userData) {
             JPG or PNG
           </p>
           <label
-            className="block mb-2 text-sm font-medium"
+            className="block mb-2 mt-4 text-sm font-medium"
             htmlFor="file_input"
           >
             Banner
           </label>
           <input
-            className="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer focus:outline-none dark:border-gray-600"
+            className="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer focus:outline-none "
             aria-describedby="file_input_help "
             id="file_input"
             type="file"
@@ -148,7 +147,7 @@ function EditProfile(userData) {
 
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-[#5bc0be] hover:bg-[#4d9292] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Submit
           </button>
