@@ -14,7 +14,7 @@ function PetCreatePage() {
     try {
       const uploadData = new FormData();
       
-      uploadData.append("petImage", picture);
+      uploadData.append("uploadImg", picture);
       const response = await service.uploadImage(uploadData); 
       handleSubmit(response.fileUrl);
     } catch (error) {

@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import PetEditForm from "../components/PetEditForm";
 import { AuthContext } from "../context/auth.context";
 import service from "../services/file-upload.service";

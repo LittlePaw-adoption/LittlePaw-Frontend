@@ -6,8 +6,6 @@ const service = axios.create({
   baseURL: `${API_URL}`,
 });
 
-
-
 service.interceptors.request.use(
   async (config) => {
     const json = localStorage.getItem("authToken");
@@ -48,9 +46,18 @@ const createPets = (pets) => {
     .catch(errorHandler);
 };
 
+
+const editUser = (user, requestBody) => {
+  return service
+    .put("/api/user" + user, requestBody)
+    .then((res) => res.data)
+    .catch(errorHandler);
+};
+
 export default {
   service,
   getPets,
   uploadImage,
   createPets,
+  editUser
 };
