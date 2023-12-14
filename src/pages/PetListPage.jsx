@@ -13,14 +13,29 @@ function PetListPage() {
   const [petsList, setPetsList] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [petId, setPetId] = useState(null);
+  const [petIdToDisplay, setpetIdToDisplay] = useState(null);
   const [pet, setPet] = useState(null);
  
+
+  const {petId} = useParams()
 
   const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
 
+
+  const fetchPetData = (petId) => {
+    axios
+    .get(`${API_URL}/api/pets/${petId}`, {
+      headers: { Authorization: `Bearer ${storedToken}` },
+    })
+    .then((response) => {
+      setPet(response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching pet details:", error);
+    });
+  }
 
   // Fectch pet list
   useEffect(() => {
@@ -28,28 +43,34 @@ function PetListPage() {
     .getPets()
       .then((data) => {
         setPetsList(data);
-        console.log("jesus help me", data)
       })
       .catch((error) => {
         console.log("Error getting the list of pets: ", error);
       });
   }, []);
 
+  // Code for opening modal automatically after redirecting on feed
+  const myModal=document.getElementById("my_modal_1")
+  console.log("here", myModal)
+
+  useEffect(() =>{
+    if (petId) {
+      fetchPetData(petId)
+      
+
+      if(myModal){
+        myModal.showModal();
+      }
+      return
+    }
+  },[petId, myModal])
+
   // Fecth pet details
   useEffect(() => {
-    if (petId) {
-      axios
-        .get(`${API_URL}/api/pets/${petId}`, {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        })
-        .then((response) => {
-          setPet(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching pet details:", error);
-        });
+    if (petIdToDisplay) {
+      fetchPetData(petIdToDisplay)
     }
-  }, [petId]);
+  }, [petIdToDisplay]);
 
   // Functionality for the editing/saving/cancel form
   const handleEditClick = () => {
@@ -203,7 +224,7 @@ function PetListPage() {
                     className="w-6 h-6 hover:dark:text-[#5bc0be] cursor-pointer"
                     onClick={() => {
                       document.getElementById("my_modal_1").showModal();
-                      setPetId(petDetails._id);
+                      setpetIdToDisplay(petDetails._id);
                     }}
                   >
                     <path

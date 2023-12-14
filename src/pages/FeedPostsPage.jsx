@@ -61,9 +61,9 @@ function FeedPostsPage() {
 
   return (
     <div className=" flex justify-center bg-gray-100 p-4">
-      <div className="bg-white border rounded-sm max-w-md">
+      <div className="flex flex-col gap-8  rounded-sm max-w-md">
         {pets.map((pet) => (
-          <div key={pet._id}>
+          <div key={pet._id} className="bg-white">
             <div className="flex items-center px-4 py-3">
               {userData && (
                 <>
