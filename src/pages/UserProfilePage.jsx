@@ -2,6 +2,8 @@ import { AuthContext } from "../context/auth.context";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
+import EditProfile from "../components/EditProfile";
+
 function UserProfilePage() {
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -29,10 +31,10 @@ function UserProfilePage() {
     <>
       {currentUser !== null && (
         <div className="flex flex-col justify-center items-center h-[83.5vh]">
-          <div className="relative flex flex-col items-center rounded-[20px] w-[400px] mx-auto p-4 bg-clip-border shadow dark:!bg-navy-800">
+          <div className="relative flex flex-col items-center rounded-[20px] w-[400px] mr-64 p-4 bg-clip-border shadow dark:!bg-navy-800">
             <div className="relative flex h-32 w-full justify-center rounded-xl bg-cover">
               <img
-                src={currentUser.bgImage}
+                src={currentUser.banner}
                 className="absolute flex h-32 w-full justify-center rounded-xl bg-cover"
               />
               <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
@@ -57,6 +59,10 @@ function UserProfilePage() {
               </div>
             </div>
           </div>
+          <EditProfile
+          setCurrentUser = {setCurrentUser}
+          user = {currentUser}
+          />
         </div>
       )}
     </>
