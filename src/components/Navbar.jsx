@@ -7,6 +7,15 @@ function Navbar() {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
+
+  const handleClickProfile = () => {
+    navigate(`/profile`);
+  };
+
+  
+
+
   return (
     <nav className="border-gray-200 shadow">
       <nav className="top-0 left-0 right-0 z-50 border-gray-200">
@@ -82,14 +91,6 @@ function Navbar() {
                   </li>
                   <li>
                     <NavLink
-                      to="/profile"
-                      className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
-                    >
-                      Profile
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
                       to="/pets/create"
                       className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
                     >
@@ -113,7 +114,11 @@ function Navbar() {
                   >
                     Logout
                   </button>
-                  <span>{user && user.name}</span>
+                  <div className="avatar">
+                    <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer">
+                      <img src="" onClick={() => handleClickProfile()}/>
+                    </div>
+                  </div>
                 </>
               )}
             </ul>
