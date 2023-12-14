@@ -1,5 +1,6 @@
 import { AuthContext } from "../context/auth.context";
 import { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import axios from "axios";
 
@@ -15,6 +16,8 @@ function UserProfilePage() {
 
   const API_URL = import.meta.env.VITE_API_URL;
   const storedToken = localStorage.getItem("authToken");
+
+  const location = useLocation();
 
   useEffect(() => {
     if (user) {
@@ -34,8 +37,8 @@ function UserProfilePage() {
   return (
     <>
       {currentUser !== null && (
-        <div className="flex justify-center items-center h-[83.5vh]">
-          <div className="relative flex flex-col items-center rounded-[20px] w-[400px] mr-64 p-4 bg-clip-border shadow-lg dark:!bg-navy-800 bg-white">
+        <div className={`${location.pathname === "/profile" ? "flex justify-center items-center h-[83.5vh]  bg-gray-900 bg-opacity-5" : ""}`}>
+          <div className="relative flex flex-col items-center rounded-[20px] w-[400px] mr-64 p-4 bg-clip-border shadow-lg bg-white">
             <div className="relative flex h-32 w-full justify-center rounded-xl bg-cover ">
               <img
                 src={currentUser.banner || defaultBanner}
@@ -65,8 +68,10 @@ function UserProfilePage() {
               </div>
             </div>
           </div>
-          <div className="border-l border-gray-300 h-2/3 mx-10"></div>
-          <EditProfile setCurrentUser={setCurrentUser} user={currentUser} />
+
+          {location.pathname === "/profile" ? <div className="border-l border-gray-300 h-2/3 mx-10"></div> : null}
+          {location.pathname === "/profile" ? <EditProfile setCurrentUser={setCurrentUser} user={currentUser} /> : null}
+          
         </div>
       )}
     </>
