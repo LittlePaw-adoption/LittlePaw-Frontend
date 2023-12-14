@@ -115,7 +115,7 @@ function Navbar() {
                     Logout
                   </button>
                   <div className="avatar">
-                    <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer">
+                    <div className="w-8 rounded-full ring ring-[#5bc0be] ring-offset-base-100 ring-offset-4 cursor-pointer">
                       <img src="" onClick={() => handleClickProfile()}/>
                     </div>
                   </div>
