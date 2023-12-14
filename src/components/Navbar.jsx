@@ -35,7 +35,7 @@ function Navbar() {
 
   return (
     <>
-      {currentUser !== null && (
+      
         <nav className="border-gray-200 shadow">
           <nav className="top-0 left-0 right-0 z-50 border-gray-200">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -133,6 +133,7 @@ function Navbar() {
                       >
                         Logout
                       </button>
+                      {currentUser !== null && (
                       <div className="avatar">
                         <div
                           className="w-8 rounded-full ring ring-[#5bc0be] ring-offset-base-100 ring-offset-4 cursor-pointer"
@@ -140,7 +141,9 @@ function Navbar() {
                         >
                           <img src={currentUser.profileImage} />
                         </div>
+                        
                       </div>
+                      )}
                     </>
                   )}
                 </ul>
@@ -148,7 +151,7 @@ function Navbar() {
             </div>
           </nav>
         </nav>
-      )}
+
     </>
   );
 }
