@@ -4,6 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
 import axios from "axios";
 import logo from "../assets/shelter.png";
+import UserProfilePage from "./UserProfilePage";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const storedToken = localStorage.getItem("authToken");
@@ -14,9 +15,8 @@ function FeedPostsPage() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    console.log(storedToken)
+    console.log(storedToken);
     // Fetch the list of pets
     axios
       .get(`${API_URL}/api/pets`, {
@@ -34,8 +34,6 @@ function FeedPostsPage() {
       });
   }, [user]);
 
-
-
   const handleClickPets = (petId) => {
     navigate(`/pets/${petId}`);
   };
@@ -44,48 +42,50 @@ function FeedPostsPage() {
     navigate(`/shelters`);
   };
 
-
   return (
-    <div className=" flex justify-center bg-gray-100 p-4">
-      <div className="flex flex-col gap-8  rounded-sm max-w-md">
-        {pets.map((pet) => (
-          <div key={pet._id} className="bg-white">
-            <div className="flex items-center px-4 py-3">
-              {pet.createdBy && (
-                <>
-                  <img
-                    className="h-8 w-8 rounded-full"
-                    src={pet.createdBy.profileImage}
-                    alt={pet.createdBy.name}
-                  />
-                  <div className="ml-3">
-                    <span className="text-sm font-semibold antialiased block leading-tight">
-                      {pet.createdBy.name}
-                    </span>
-                    <span className="text-gray-600 text-xs block">
-                      {pet.createdBy.country}
-                    </span>
-                  </div>
-                </>
-              )}
-            </div>
+    <div className="">
+      <div className="absolute top-40 pl-40">
+      <UserProfilePage/>
+      </div>
+      <div className=" flex justify-center bg-gray-900 bg-opacity-5 p-4">
+        <div className="flex flex-col gap-8  rounded-sm max-w-md">
+          {pets.map((pet) => (
+            <div key={pet._id} className="bg-white">
+              <div className="flex items-center px-4 py-3">
+                {pet.createdBy && (
+                  <>
+                    <img
+                      className="h-8 w-8 rounded-full object-cover"
+                      src={pet.createdBy.profileImage}
+                      alt={pet.createdBy.name}
+                    />
+                    <div className="ml-3">
+                      <span className="text-sm font-semibold antialiased block leading-tight text-black">
+                        {pet.createdBy.name}
+                      </span>
+                      <span className="text-gray-500 text-xs block">
+                        {pet.createdBy.country}
+                      </span>
+                    </div>
+                  </>
+                )}
+              </div>
 
-            <img src={pet.petImage} />
+              <img src={pet.petImage} />
 
-            <p className="font-semibold text-sm mx-4 mt-2 mb-4 break-words">
-              {pet.description}
-            </p>
-            <hr />
-            <div className="flex items-center justify-between mx-4 mt-3 mb-2">
-              <div className="flex gap-5">
-
-              <svg
+              <p className="font-semibold text-sm mx-4 mt-2 mb-4 break-words text-gray-500">
+                {pet.description}
+              </p>
+              <hr />
+              <div className="flex items-center justify-between mx-4 mt-3 mb-2">
+                <div className="flex gap-5 text-gray-500">
+                  <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     className="w-6 h-6 hover:dark:text-[#5bc0be] cursor-pointer"
                     onClick={() => {
-                      handleClickPets(pet._id)
+                      handleClickPets(pet._id);
                     }}
                   >
                     <path
@@ -94,17 +94,22 @@ function FeedPostsPage() {
                       clipRule="evenodd"
                     />
                   </svg>
+                </div>
 
-
+                <div className="flex">
+                  <img
+                    src={logo}
+                    height="24"
+                    viewBox="0 0 48 48"
+                    width="24"
+                    className="cursor-pointer"
+                    onClick={() => handleClickShelters()}
+                  />
+                </div>
               </div>
-
-              <div className="flex">
-              <img src={logo} height="24" viewBox="0 0 48 48" width="24" className="cursor-pointer" onClick={() => handleClickShelters()}/>
-              </div>
-
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
