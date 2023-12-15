@@ -38,7 +38,7 @@ function UserProfilePage() {
     <>
       {currentUser !== null && (
         <div className={`${location.pathname === "/profile" ? "flex justify-center items-center h-[83.5vh]  bg-gray-900 bg-opacity-5" : ""}`}>
-          <div className="relative flex flex-col items-center rounded-[20px] w-[400px] mr-64 p-4 bg-clip-border shadow-lg bg-white">
+          <div className="relative flex flex-col items-center rounded-[20px] w-[400px]  p-4 bg-clip-border shadow-lg bg-white">
             <div className="relative flex h-32 w-full justify-center rounded-xl bg-cover ">
               <img
                 src={currentUser.banner || defaultBanner}
