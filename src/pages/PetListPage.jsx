@@ -248,8 +248,8 @@ function PetListPage() {
                           <div>
                             <h3 className="font-bold text-lg">{pet.name}</h3>
                             <p className="py-4">{pet.species}</p>
-                            <p className="py-4">{pet.breed}</p>
-                            <p className="py-4">{pet.age}</p>
+                            <p className="py-4">Breed: {pet.breed}</p>
+                            <p className="py-4">Age: {pet.age}</p>
                             {pet.description && (
                               <p>Description: {pet.description}</p>
                             )}
