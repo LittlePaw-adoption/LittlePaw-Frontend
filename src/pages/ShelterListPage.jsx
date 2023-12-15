@@ -134,7 +134,7 @@ function ShelterListPage() {
       return null;
     }
 
-    if (currentUser._id === shelterDetails.createdBy) {
+    if (currentUser._id === shelterDetails.createdBy?._id) {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
