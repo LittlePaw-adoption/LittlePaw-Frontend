@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import ShelterEditForm from "../components/ShelterEditForm"; // Import ShelterEditForm component
 import { AuthContext } from "../context/auth.context";
+import service from "../services/file-upload.service";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const storedToken = localStorage.getItem("authToken");
@@ -98,8 +99,8 @@ function ShelterListPage() {
         }
       );
 
-      const updatedShelterList = await axios.get(`${API_URL}/api/shelters`);
-      setSheltersList(updatedShelterList.data);
+      const updatedShelterList = await service.getShelters();
+      setSheltersList(updatedShelterList);
 
       setShelter(updatedShelter);
       setIsEditing(false);

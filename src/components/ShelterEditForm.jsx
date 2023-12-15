@@ -84,9 +84,9 @@ const ShelterEditForm = ({ shelter, onCancel, onSave }) => {
           onClick={onCancel}
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           />
         </svg>
         <svg
@@ -97,9 +97,9 @@ const ShelterEditForm = ({ shelter, onCancel, onSave }) => {
           onClick={handleSave}
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           />
         </svg>
       </div>
