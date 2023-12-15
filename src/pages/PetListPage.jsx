@@ -210,7 +210,7 @@ function PetListPage() {
                     src={petDetails.petImage}
                   />
                   <div className="flex-1 my-4">
-                    <p className="text-xl font-semibold leadi text-black">
+                    <p className="text-xl font-semibold text-black">
                       {petDetails.name}
                     </p>
                     <p className="text-gray-400">{petDetails.breed}</p>
@@ -255,7 +255,7 @@ function PetListPage() {
                             )}
 
                             {currentUser !== null &&
-                            currentUser._id === pet?.createdBy ? (
+                            currentUser._id === pet?.createdBy._id ? (
                               isEditing ? (
                                 <PetEditForm
                                   pet={pet}
