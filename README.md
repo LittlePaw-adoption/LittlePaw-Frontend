@@ -60,11 +60,16 @@ npm install cloudinary multer multer-storage-cloudinary,</p><h5>Steps</h5><ul>
 </ul><ul>
 <li>Clone the repo on your PC directory and code -r . on console</li>
 </ul><ul>
+<li>Add .env file</li>
+</ul><ul>
 <li>Dependencies install</li>
 </ul><ul>
 <li>Npm run dev -- --port 3000</li>
 </ul><ul>
 <li>Dont forget the backend server !!!</li>
+</ul><h2>Env File</h2>
+<hr><p>Paste the following line on your .env file : VITE_API_URL=http://localhost:5005
+</p>
 </ul><h2>Project Status</h2>
 <hr><p>Completed for the Porpuse and demands of the final project on Bootcamp.</p><h2>Improvements</h2>
 <hr><ul>
