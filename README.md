@@ -67,9 +67,12 @@ npm install cloudinary multer multer-storage-cloudinary,</p><h5>Steps</h5><ul>
 <li>Npm run dev -- --port 3000</li>
 </ul><ul>
 <li>Dont forget the backend server !!!</li>
-</ul><h2>Env File</h2>
+</ul><h2>Env File & Config Files for tailwind/daisy Library</h2>
+
 <hr><p>Paste the following line on your .env file : VITE_API_URL=http://localhost:5005
 </p>
+<p>Follow point "2" on at: https://daisyui.com/docs/install/ to install the library</p>
+<p>Follow point "2 & 3" on at: https://tailwindcss.com/docs/installation to install tailwind</p>
 </ul><h2>Project Status</h2>
 <hr><p>Completed for the Porpuse and demands of the final project on Bootcamp.</p><h2>Improvements</h2>
 <hr><ul>
