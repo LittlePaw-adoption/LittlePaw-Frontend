@@ -3,9 +3,9 @@ import { AuthContext } from "../context/auth.context";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../assets/logo.png";
-import logoCreatePets from "../assets/pawprint.png";
 import logoCreateShelters from "../assets/shelter.png";
 import defaultProfilePic from "../assets/defaultProfilePic.jpg";
+import { IoPawSharp } from "react-icons/io5";
 
 function Navbar() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -99,13 +99,10 @@ function Navbar() {
                         to="/pets"
                         className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
                       >
-                        <img
-                    src={logoCreatePets}
-                    height="24"
-                    viewBox="0 0 48 48"
-                    width="28"
-                    className="cursor-pointer"
-                  />
+                        <IoPawSharp
+                          className="cursor-pointer"
+                          style={{ width: '28px', height: '28px' }}
+                        />
                       </NavLink>
                     </li>
                     <li>
@@ -114,12 +111,12 @@ function Navbar() {
                         className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
                       >
                         <img
-                    src={logoCreateShelters}
-                    height="28"
-                    viewBox="0 0 48 48"
-                    width="28"
-                    className="cursor-pointer"
-                  />
+                          src={logoCreateShelters}
+                          height="28"
+                          viewBox="0 0 48 48"
+                          width="28"
+                          className="cursor-pointer"
+                        />
                       </NavLink>
                     </li>
 
@@ -127,7 +124,11 @@ function Navbar() {
                       currentUser.typeOfUser === "Shelter" && (
                         <>
                           <div className="dropdown">
-                            <div tabIndex={0} role="button" className="btn m-1 hover:text-[#5bc0be]">
+                            <div
+                              tabIndex={0}
+                              role="button"
+                              className="text-[#5bc0be] bg-gray-500 bg-opacity-25 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                            >
                               Create
                             </div>
                             <ul
@@ -138,6 +139,7 @@ function Navbar() {
                                 <NavLink
                                   to="/pets/create"
                                   className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
+                                  
                                 >
                                   Pets
                                 </NavLink>
@@ -146,12 +148,14 @@ function Navbar() {
                                 <NavLink
                                   to="/shelters/create"
                                   className="lock py-2 px-3 md:p-0 md:dark:hover:bg-transparent hover:text-[#5bc0be]"
+                                  
                                 >
                                   Shelters
                                 </NavLink>
                               </li>
                             </ul>
                           </div>
+                          <hr className="border-r-2 h-6"/>
                         </>
                       )}
                     <button
