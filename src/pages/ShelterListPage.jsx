@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import ShelterEditForm from "../components/ShelterEditForm"; // Import ShelterEditForm component
 import { AuthContext } from "../context/auth.context";
@@ -13,12 +13,38 @@ function ShelterListPage() {
   const [currentUser, setCurrentUser] = useState(null);
   const [shelterIdToDisplay, setShelterIdToDisplay] = useState(null);
   const [shelter, setShelter] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { user } = useContext(AuthContext);
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const { shelterId } = useParams();
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`${API_URL}/api/user/${user._id}`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          setCurrentUser(response.data[0]);
+        })
+        .catch((error) => {
+          console.error("Error fetching user details:", error);
+        });
+    }
+  }, [user]);
+
+  const fetchShelterData = (shelterId) => {
+    console.log(storedToken);
+    axios
+      .get(`${API_URL}/api/shelters/${shelterId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        setShelter(response.data[0]);
+      })
+      .catch((error) => {
+        console.error("Error fetching shelter details:", error);
+      });
   };
 
   useEffect(() => {
@@ -33,6 +59,26 @@ function ShelterListPage() {
         console.log("Error getting the list of shelters: ", error);
       });
   }, []);
+
+  const myModal = document.getElementById("my_modal_1");
+  console.log("here", myModal);
+
+  useEffect(() => {
+    if (shelterId) {
+      fetchShelterData(shelterId);
+
+      if (myModal) {
+        myModal.showModal();
+      }
+      return;
+    }
+  }, [shelterId, myModal]);
+
+  useEffect(() => {
+    if (shelterIdToDisplay) {
+      fetchShelterData(shelterIdToDisplay);
+    }
+  }, [shelterIdToDisplay]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -111,7 +157,7 @@ function ShelterListPage() {
 
   return (
     <div>
-      <div className="py-6">
+      <div className="py-6 bg-gray-900 bg-opacity-5">
         <div className="container flex flex-col items-center justify-center p-4 mx-auto sm:p-10">
           <div className="flex flex-row flex-wrap-reverse justify-center mt-8">
             {sheltersList === null ? (
@@ -120,51 +166,30 @@ function ShelterListPage() {
               sheltersList.map((shelterDetails) => (
                 <div
                   key={shelterDetails._id}
-                  className="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center rounded-md md:w-96 lg:w-80 xl:w-64 border-solid border-2 border-[#5bc0be] "
+                  className="shadow flex flex-col justify-center w-full px-8 mx-6 my-12 text-center rounded-md md:w-96 lg:w-80 xl:w-64 border-solid border-2 border-[#5bc0be] bg-white "
                 >
                   <img
-                    className="mask mask-hexagon-2 self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover dark:bg-gray-500"
+                    className="mask mask-hexagon-2 self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover dark:bg-gray-500 object-cover"
                     src={shelterDetails.shelterImage}
                   />
                   <div className="flex-1 my-4">
-                    <p className="text-xl font-semibold leadi">
+                    <p className="text-xl font-semibold text-black">
                       {shelterDetails.name}
                     </p>
-                    <p>{shelterDetails.location}</p>
-                    <p>{shelterDetails.contact}</p>
-                    <p>{shelterDetails.description}</p>
+                    <p className="text-gray-400">{shelterDetails.location}</p>
+                    <p className="text-gray-400">{shelterDetails.contact}</p>
+                    <p className="text-black">{shelterDetails.description}</p>
                   </div>
                   <div className="flex items-center justify-center p-3 space-x-3 border-t-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="w-6 h-6 hover:dark:text-[#5bc0be] cursor-pointer"
+                      className="w-6 h-6 hover:dark:text-[#5bc0be] cursor-pointer text-gray-400"
                       onClick={() => {
-                        // Fetch shelter details based on the ID before showing the modal to fix always loading
-                        axios
-                          .get(
-                            `${API_URL}/api/shelters/${shelterDetails._id}`,
-                            {
-                              headers: {
-                                Authorization: `Bearer ${storedToken}`,
-                              },
-                            }
-                          )
-                          .then((response) => {
-                            setShelter(response.data);
-                            openModal(); // Use the new function to open the modal
-                          })
-                          .catch((error) => {
-                            console.error(
-                              "Error getting shelter details:",
-                              error
-                            );
-                            alert(
-                              "Error getting shelter details. Please try again."
-                            );
-                          });
-                      }}
+                          document.getElementById("my_modal_1").showModal();
+                          setShelterIdToDisplay(shelterDetails._id);
+                        }}
                     >
                       <path
                         fillRule="evenodd"
@@ -173,8 +198,7 @@ function ShelterListPage() {
                       />
                     </svg>
 
-                    {isModalOpen && (
-                      <div className="modal">
+                    <dialog id="my_modal_1" className="modal">
                         <div className="modal-box">
                           {shelter ? (
                             <div>
@@ -214,16 +238,14 @@ function ShelterListPage() {
                             <form method="dialog">
                               <button
                                 className="glass btn"
-                                onClick={() => setIsModalOpen(false)}
+                                
                               >
                                 Close
                               </button>
                             </form>
                           </div>
                         </div>
-                      </div>
-                    )}
-
+                      </dialog>
                     {renderDeleteButton(currentUser, shelterDetails)}
                   </div>
                 </div>
