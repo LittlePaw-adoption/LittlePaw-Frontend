@@ -5,7 +5,6 @@ import PetListPage from "./pages/PetListPage"
 import PetCreatePage from "./pages/PetCreatePage"
 import ShelterListPage from "./pages/ShelterListPage"
 import ShelterCreatePage from "./pages/ShelterCreatePage"
-import ShelterDetailsPage from "./pages/ShelterDetailsPage"
 import LoginPage from "./pages/LoginPage"
 import SignupPage from "./pages/SignupPage"
 import Homepage from "./pages/Homepage"
@@ -33,8 +32,8 @@ function App() {
           <Route path="/pets/:petId" element={<PetListPage />} />
 
           <Route path="/shelters" element={<ShelterListPage />} />
-          <Route path="/shelters/details/:shelterId" element={<ShelterDetailsPage />} />
           <Route path="/shelters/create" element={<ShelterCreatePage />} />
+          <Route path="/shelters/:shelterId" element={<ShelterListPage />} />
 
           <Route path="/login" element={<IsAnon><LoginPage /></IsAnon>} />
           <Route path="/signup" element={<IsAnon><SignupPage /></IsAnon>} />

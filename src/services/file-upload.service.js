@@ -55,7 +55,7 @@ const createShelters = (shelters) => {
 
 const getShelters = () => {
   return service
-    .get("/api/pets")
+    .get("/api/shelters")
     .then((res) => res.data)
     .catch(errorHandler);
 };

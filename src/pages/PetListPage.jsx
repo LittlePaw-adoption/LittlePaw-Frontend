@@ -167,11 +167,12 @@ function PetListPage() {
   }, [user]);
 
   const renderDeleteButton = (currentUser, petDetails) => {
+    
     if (currentUser === null || petDetails === null) {
       return null;
-    }
-
-    if (currentUser._id === petDetails.createdBy) {
+    } 
+    
+    if (currentUser._id === petDetails.createdBy?._id) {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
